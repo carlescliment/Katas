@@ -26,8 +26,8 @@ class GameControllerTest extends UsefulTestCase
     	$this->startANewMatchThroughInterface();
 
     	//Assert
-    	$games = $this->em->getRepository('DCTenisBundle:Match')->findAll();
-    	$this->assertEquals(1, count($games));
+    	$matches = $this->em->getRepository('DCTenisBundle:Match')->findAll();
+    	$this->assertEquals(1, count($matches));
     }
 
 
@@ -55,15 +55,20 @@ class GameControllerTest extends UsefulTestCase
     	$this->assertTrue($this->client->getResponse()->isSuccessful());
     }
 
-    /*
-    public function testItShouldCreateGamesInMatches() {
+    public function testItShouldCreateMatchGames() {
     	// Arrange
+    	$match = MatchFactory::create($this->em);
+    	$crawler = $this->client->request('GET', '/tenis/' . $match->getId());
+    	$link = $crawler->filter('a#start-game')->link();
 
     	// Act
+    	$this->client->click($link);
 
     	// Assert
+    	$games = $this->em->getRepository('DCTenisBundle:Game')->findAll();
+    	$this->assertEquals(1, count($games));
     }
-     */
+
 
 
 	private function startANewMatchThroughInterface() {
