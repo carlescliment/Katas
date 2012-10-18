@@ -38,6 +38,7 @@ class apptestUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerat
         '_configurator_final' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'Sensio\\Bundle\\DistributionBundle\\Controller\\ConfiguratorController::finalAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/_configurator/final',    ),  ),),
         'index' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'DC\\TenisBundle\\Controller\\GameController::indexAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/tenis',    ),  ),),
         'create_game' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'DC\\TenisBundle\\Controller\\GameController::createAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/tenis/create',    ),  ),),
+        'view_game' => array (  0 =>   array (    0 => 'id',  ),  1 =>   array (    '_controller' => 'DC\\TenisBundle\\Controller\\GameController::viewAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'variable',      1 => '/',      2 => '[^/]+',      3 => 'id',    ),    1 =>     array (      0 => 'text',      1 => '/tenis',    ),  ),),
     );
 
     /**

@@ -3,6 +3,8 @@
 namespace DC\TenisBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DC\TenisBundle\Entity\Game;
+
 
 /**
  * DC\TenisBundle\Entity\Game
@@ -32,7 +34,7 @@ class Game
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -48,14 +50,13 @@ class Game
     public function setRunning($running)
     {
         $this->running = $running;
-    
         return $this;
     }
 
     /**
      * Get running
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getRunning()
     {

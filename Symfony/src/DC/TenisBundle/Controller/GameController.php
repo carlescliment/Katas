@@ -30,4 +30,13 @@ class GameController extends Controller
     	$this->get('session')->setFlash('notice', 'A new game has been started');
     	return $this->redirect($this->generateUrl('index'));
     }
+
+    /**
+     * @Route("/tenis/{id}", name="view_game")
+     * @Template()
+     */
+    public function viewAction($id) {
+    	$game = $this->getDoctrine()->getRepository('DCTenisBundle:Game')->find($id);
+    	return array('game' => $game);
+    }
 }

@@ -172,6 +172,11 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
             return array (  '_controller' => 'DC\\TenisBundle\\Controller\\GameController::createAction',  '_route' => 'create_game',);
         }
 
+        // view_game
+        if (0 === strpos($pathinfo, '/tenis') && preg_match('#^/tenis/(?<id>[^/]+)$#s', $pathinfo, $matches)) {
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'DC\\TenisBundle\\Controller\\GameController::viewAction',)), array('_route' => 'view_game'));
+        }
+
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }

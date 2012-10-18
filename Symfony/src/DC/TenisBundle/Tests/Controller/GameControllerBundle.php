@@ -2,6 +2,7 @@
 
 namespace DC\TenisBundle\Tests\Controller;
 
+use DC\TenisBundle\Entity\Game;
 
 class GameControllerTest extends UsefulTestCase
 {
@@ -28,11 +29,24 @@ class GameControllerTest extends UsefulTestCase
     }
 
 
+    public function testIShouldAccessToAGame() {
+    	// Arrange
+    	$game = new Game();
+    	$this->em->persist($game);
+    	$this->em->flush();
+
+    	// Act
+    	$this->client->request('GET', '/tenis/' . $game->getId());
+
+		// Assert
+    	$this->assertTrue($this->client->getResponse()->isSuccessful());
+    }
+
+
 	private function startANewGameThroughInterface() {
     	$crawler = $this->client->request('GET', '/tenis');
 		$link = $crawler->filter('a#start-game')->link();
     	$this->client->click($link);
 	}
-
 
 }
