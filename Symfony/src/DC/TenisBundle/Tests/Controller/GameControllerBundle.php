@@ -2,7 +2,8 @@
 
 namespace DC\TenisBundle\Tests\Controller;
 
-use DC\TenisBundle\Entity\Match;
+use DC\TenisBundle\Tests\Factory\MatchFactory;
+
 
 class GameControllerTest extends UsefulTestCase
 {
@@ -32,7 +33,7 @@ class GameControllerTest extends UsefulTestCase
 
     public function testIShouldAccessToAMatch() {
     	// Arrange
-    	$match = $this->createMatch();
+    	$match = MatchFactory::create($this->em);
 
     	// Act
     	$this->client->request('GET', '/tenis/' . $match->getId());
@@ -43,7 +44,7 @@ class GameControllerTest extends UsefulTestCase
 
     public function testIShouldStartAGameInAMatch() {
     	// Arrange
-    	$match = $this->createMatch();
+    	$match = MatchFactory::create($this->em);
     	$crawler = $this->client->request('GET', '/tenis/' . $match->getId());
     	$link = $crawler->filter('a#start-game')->link();
 
@@ -69,12 +70,5 @@ class GameControllerTest extends UsefulTestCase
     	$crawler = $this->client->request('GET', '/tenis');
 		$link = $crawler->filter('a#start-match')->link();
     	$this->client->click($link);
-	}
-
-	private function createMatch() {
-    	$match = new Match();
-    	$this->em->persist($match);
-    	$this->em->flush();
-    	return $match;
 	}
 }
