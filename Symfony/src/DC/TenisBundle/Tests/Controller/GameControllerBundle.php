@@ -32,9 +32,7 @@ class GameControllerTest extends UsefulTestCase
 
     public function testIShouldAccessToAMatch() {
     	// Arrange
-    	$match = new Match();
-    	$this->em->persist($match);
-    	$this->em->flush();
+    	$match = $this->createMatch();
 
     	// Act
     	$this->client->request('GET', '/tenis/' . $match->getId());
@@ -45,9 +43,7 @@ class GameControllerTest extends UsefulTestCase
 
     public function testIShouldStartAGameInAMatch() {
     	// Arrange
-    	$match = new Match();
-    	$this->em->persist($match);
-    	$this->em->flush();
+    	$match = $this->createMatch();
     	$crawler = $this->client->request('GET', '/tenis/' . $match->getId());
     	$link = $crawler->filter('a#start-game')->link();
 
@@ -61,9 +57,9 @@ class GameControllerTest extends UsefulTestCase
     /*
     public function testItShouldCreateGamesInMatches() {
     	// Arrange
-    	
+
     	// Act
-    	
+
     	// Assert
     }
      */
@@ -75,4 +71,10 @@ class GameControllerTest extends UsefulTestCase
     	$this->client->click($link);
 	}
 
+	private function createMatch() {
+    	$match = new Match();
+    	$this->em->persist($match);
+    	$this->em->flush();
+    	return $match;
+	}
 }
