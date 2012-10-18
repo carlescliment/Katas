@@ -463,7 +463,7 @@
     <parameter key="jms_di_extra.cache_dir">/var/www/vhosts/Katas/Symfony/app/cache/test/jms_diextra</parameter>
     <parameter key="jms_di_extra.doctrine_integration">true</parameter>
     <parameter key="jms_di_extra.doctrine_integration.entity_manager.file">/var/www/vhosts/Katas/Symfony/app/cache/test/jms_diextra/doctrine/EntityManager.php</parameter>
-    <parameter key="jms_di_extra.doctrine_integration.entity_manager.class">EM507fe39ec0a80_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager</parameter>
+    <parameter key="jms_di_extra.doctrine_integration.entity_manager.class">EM507fe7cba8503_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager</parameter>
     <parameter key="security.secured_services" type="collection"/>
     <parameter key="security.access.method_interceptor.class">JMS\SecurityExtraBundle\Security\Authorization\Interception\MethodSecurityInterceptor</parameter>
     <parameter key="security.access.method_access_control" type="collection"/>
@@ -2156,7 +2156,7 @@
     <service id="doctrine.orm.default_manager_configurator" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator">
       <argument type="collection"/>
     </service>
-    <service id="doctrine.orm.default_entity_manager" class="EM507fe39ec0a80_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager">
+    <service id="doctrine.orm.default_entity_manager" class="EM507fe7cba8503_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager">
       <file>/var/www/vhosts/Katas/Symfony/app/cache/test/jms_diextra/doctrine/EntityManager.php</file>
       <argument type="service">
         <service class="Doctrine\ORM\EntityManager" factory-method="create" public="false">
@@ -2164,7 +2164,9 @@
           <argument type="service">
             <service class="Doctrine\ORM\Configuration" public="false">
               <call method="setEntityNamespaces">
-                <argument type="collection"/>
+                <argument type="collection">
+                  <argument key="DCTenisBundle">DC\TenisBundle\Entity</argument>
+                </argument>
               </call>
               <call method="setMetadataCacheImpl">
                 <argument type="service">
@@ -2195,7 +2197,19 @@
               </call>
               <call method="setMetadataDriverImpl">
                 <argument type="service">
-                  <service class="Doctrine\ORM\Mapping\Driver\DriverChain" public="false"/>
+                  <service class="Doctrine\ORM\Mapping\Driver\DriverChain" public="false">
+                    <call method="addDriver">
+                      <argument type="service">
+                        <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                          <argument type="service" id="annotation_reader"/>
+                          <argument type="collection">
+                            <argument>/var/www/vhosts/Katas/Symfony/src/DC/TenisBundle/Entity</argument>
+                          </argument>
+                        </service>
+                      </argument>
+                      <argument>DC\TenisBundle\Entity</argument>
+                    </call>
+                  </service>
                 </argument>
               </call>
               <call method="setProxyDir">

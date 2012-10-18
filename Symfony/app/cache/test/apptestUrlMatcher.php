@@ -162,9 +162,14 @@ class apptestUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
 
         }
 
-        // dc_tenis_game_index
+        // index
         if ($pathinfo === '/tenis') {
-            return array (  '_controller' => 'DC\\TenisBundle\\Controller\\GameController::indexAction',  '_route' => 'dc_tenis_game_index',);
+            return array (  '_controller' => 'DC\\TenisBundle\\Controller\\GameController::indexAction',  '_route' => 'index',);
+        }
+
+        // create_game
+        if ($pathinfo === '/tenis/create') {
+            return array (  '_controller' => 'DC\\TenisBundle\\Controller\\GameController::createAction',  '_route' => 'create_game',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
