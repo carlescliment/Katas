@@ -17,7 +17,7 @@ class GameControllerTest extends UsefulTestCase
     }
 
 
-    public function testItCreatesANewGameWhenStartingAGame() {
+    public function testItShouldCreateMatches() {
     	// Arrange
     	$this->truncateTables(array('matches'));
 
@@ -30,7 +30,7 @@ class GameControllerTest extends UsefulTestCase
     }
 
 
-    public function testIShouldAccessToAGame() {
+    public function testIShouldAccessToAMatch() {
     	// Arrange
     	$match = new Match();
     	$this->em->persist($match);
@@ -42,6 +42,31 @@ class GameControllerTest extends UsefulTestCase
 		// Assert
     	$this->assertTrue($this->client->getResponse()->isSuccessful());
     }
+
+    public function testIShouldStartAGameInAMatch() {
+    	// Arrange
+    	$match = new Match();
+    	$this->em->persist($match);
+    	$this->em->flush();
+    	$crawler = $this->client->request('GET', '/tenis/' . $match->getId());
+    	$link = $crawler->filter('a#start-game')->link();
+
+    	// Act
+    	$this->client->click($link);
+
+    	// Assert
+    	$this->assertTrue($this->client->getResponse()->isSuccessful());
+    }
+
+    /*
+    public function testItShouldCreateGamesInMatches() {
+    	// Arrange
+    	
+    	// Act
+    	
+    	// Assert
+    }
+     */
 
 
 	private function startANewMatchThroughInterface() {
