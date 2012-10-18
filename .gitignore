@@ -7,6 +7,7 @@ vendor/*
 */cache/*
 web/uploads/*
 web/bundles/*
+*/sess_*
 
 # Configuration files
 app/config/parameters.ini

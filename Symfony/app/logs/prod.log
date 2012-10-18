@@ -1,0 +1,2 @@
+[2012-10-18 12:45:24] request.ERROR: Symfony\Component\HttpKernel\Exception\NotFoundHttpException: No route found for "GET /" (uncaught exception) at /var/www/vhosts/Katas/Symfony/vendor/symfony/symfony/src/Symfony/Component/HttpKernel/EventListener/RouterListener.php line 92 [] []
+[2012-10-18 12:45:32] request.ERROR: Symfony\Component\HttpKernel\Exception\NotFoundHttpException: No route found for "GET /" (uncaught exception) at /var/www/vhosts/Katas/Symfony/vendor/symfony/symfony/src/Symfony/Component/HttpKernel/EventListener/RouterListener.php line 92 [] []
