@@ -162,6 +162,11 @@ class appdevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        // dc_tenis_game_index
+        if ($pathinfo === '/tenis') {
+            return array (  '_controller' => 'DC\\TenisBundle\\Controller\\GameController::indexAction',  '_route' => 'dc_tenis_game_index',);
+        }
+
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }
