@@ -39,6 +39,7 @@ class appdevUrlGenerator extends Symfony\Component\Routing\Generator\UrlGenerato
         'index' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'DC\\TenisBundle\\Controller\\GameController::indexAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/tenis',    ),  ),),
         'create_match' => array (  0 =>   array (  ),  1 =>   array (    '_controller' => 'DC\\TenisBundle\\Controller\\GameController::createMatchAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/tenis/create',    ),  ),),
         'view_match' => array (  0 =>   array (    0 => 'id',  ),  1 =>   array (    '_controller' => 'DC\\TenisBundle\\Controller\\GameController::viewAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'variable',      1 => '/',      2 => '[^/]+',      3 => 'id',    ),    1 =>     array (      0 => 'text',      1 => '/tenis',    ),  ),),
+        'create_game' => array (  0 =>   array (    0 => 'id',  ),  1 =>   array (    '_controller' => 'DC\\TenisBundle\\Controller\\GameController::createGameAction',  ),  2 =>   array (  ),  3 =>   array (    0 =>     array (      0 => 'text',      1 => '/create-game',    ),    1 =>     array (      0 => 'variable',      1 => '/',      2 => '[^/]+',      3 => 'id',    ),    2 =>     array (      0 => 'text',      1 => '/tenis',    ),  ),),
     );
 
     /**

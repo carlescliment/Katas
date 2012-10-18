@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use DC\TenisBundle\Entity\Match;
+use DC\TenisBundle\Entity\Game;
 
 class GameController extends Controller
 {
@@ -28,7 +29,7 @@ class GameController extends Controller
     	$em->persist($match);
     	$em->flush();
     	$this->get('session')->setFlash('notice', 'A new match has been started');
-    	return $this->redirect($this->generateUrl('index'));
+    	return $this->redirect($this->generateUrl('view_match', array('id' => $match->getId())));
     }
 
     /**
@@ -38,5 +39,18 @@ class GameController extends Controller
     public function viewAction($id) {
     	$match = $this->getDoctrine()->getRepository('DCTenisBundle:Match')->find($id);
     	return array('match' => $match);
+    }
+
+    /**
+     * @Route("/tenis/{id}/create-game", name="create_game")
+     */
+    public function createGameAction($id) {
+    	$match = $this->getDoctrine()->getRepository('DCTenisBundle:Match')->find($id);
+    	$game = new Game($match);
+    	$em = $this->getDoctrine()->getEntityManager();
+    	$em->persist($game);
+    	$em->flush();
+    	$this->get('session')->setFlash('notice', 'A new game has been created');
+    	return $this->redirect($this->generateUrl('view_match', array('id' => $id)));
     }
 }

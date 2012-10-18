@@ -57,6 +57,7 @@ class GameControllerTest extends UsefulTestCase
 
     public function testItShouldCreateMatchGames() {
     	// Arrange
+        $this->truncateTables(array('games', 'matches'));
     	$match = MatchFactory::create($this->em);
     	$crawler = $this->client->request('GET', '/tenis/' . $match->getId());
     	$link = $crawler->filter('a#start-game')->link();
@@ -68,6 +69,12 @@ class GameControllerTest extends UsefulTestCase
     	$games = $this->em->getRepository('DCTenisBundle:Game')->findAll();
     	$this->assertEquals(1, count($games));
     }
+
+    /*
+    public function testIShouldNotStartAGameIfAGameIsBeingPlayed() {
+
+    }
+     */
 
 
 
