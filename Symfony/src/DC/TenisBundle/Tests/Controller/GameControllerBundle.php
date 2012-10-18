@@ -18,6 +18,7 @@ class GameControllerTest extends UsefulTestCase
 
     public function testItCreatesANewGameWhenStartingAGame() {
     	// Arrange
+    	$this->truncateTables(array('Game'));
     	// Act
     	$this->startANewGameThroughInterface();
 
