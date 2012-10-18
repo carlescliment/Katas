@@ -70,13 +70,6 @@ class GameControllerTest extends UsefulTestCase
     	$this->assertEquals(1, count($games));
     }
 
-    /*
-    public function testIShouldNotStartAGameIfAGameIsBeingPlayed() {
-
-    }
-     */
-
-
 
 	private function startANewMatchThroughInterface() {
     	$crawler = $this->client->request('GET', '/tenis');

@@ -46,7 +46,8 @@ class GameController extends Controller
      */
     public function createGameAction($id) {
     	$match = $this->getDoctrine()->getRepository('DCTenisBundle:Match')->find($id);
-    	$game = new Game($match);
+    	$game = new Game();
+    	$match->addGame($game);
     	$em = $this->getDoctrine()->getEntityManager();
     	$em->persist($game);
     	$em->flush();

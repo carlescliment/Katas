@@ -29,36 +29,25 @@ class Match
      */
     private $running = false;
 
-
     /**
-     * Get id
-     *
-     * @return integer
-     */
+    * @ORM\OneToMany(targetEntity="Game", mappedBy="match")
+    */
+    private $games;
+
+
+    public function __construct() {
+        $this->games = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set running
-     *
-     * @param boolean $running
-     * @return Game
-     */
-    public function setRunning($running)
-    {
-        $this->running = $running;
-        return $this;
-    }
 
-    /**
-     * Get running
-     *
-     * @return boolean
-     */
-    public function getRunning()
-    {
-        return $this->running;
+    public function addGame(Game $game) {
+        $game->setMatch($this);
+        $this->games[] = $game;
     }
 }
