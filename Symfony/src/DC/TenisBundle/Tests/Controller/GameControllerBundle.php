@@ -2,15 +2,15 @@
 
 namespace DC\TenisBundle\Tests\Controller;
 
-use DC\TenisBundle\Entity\Game;
+use DC\TenisBundle\Entity\Match;
 
 class GameControllerTest extends UsefulTestCase
 {
-    public function testIShouldStartAGame()
+    public function testIShouldStartAMatch()
     {
-    	// Assert
+    	// Arrange
     	// Act
-    	$this->startANewGameThroughInterface();
+    	$this->startANewMatchThroughInterface();
 
     	// Assert
     	$this->assertTrue($this->client->getResponse()->isSuccessful());
@@ -19,33 +19,34 @@ class GameControllerTest extends UsefulTestCase
 
     public function testItCreatesANewGameWhenStartingAGame() {
     	// Arrange
-    	$this->truncateTables(array('Game'));
+    	$this->truncateTables(array('matches'));
+
     	// Act
-    	$this->startANewGameThroughInterface();
+    	$this->startANewMatchThroughInterface();
 
     	//Assert
-    	$games = $this->em->getRepository('DCTenisBundle:Game')->findAll();
+    	$games = $this->em->getRepository('DCTenisBundle:Match')->findAll();
     	$this->assertEquals(1, count($games));
     }
 
 
     public function testIShouldAccessToAGame() {
     	// Arrange
-    	$game = new Game();
-    	$this->em->persist($game);
+    	$match = new Match();
+    	$this->em->persist($match);
     	$this->em->flush();
 
     	// Act
-    	$this->client->request('GET', '/tenis/' . $game->getId());
+    	$this->client->request('GET', '/tenis/' . $match->getId());
 
 		// Assert
     	$this->assertTrue($this->client->getResponse()->isSuccessful());
     }
 
 
-	private function startANewGameThroughInterface() {
+	private function startANewMatchThroughInterface() {
     	$crawler = $this->client->request('GET', '/tenis');
-		$link = $crawler->filter('a#start-game')->link();
+		$link = $crawler->filter('a#start-match')->link();
     	$this->client->click($link);
 	}
 

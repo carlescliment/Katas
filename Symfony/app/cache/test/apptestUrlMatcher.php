@@ -167,14 +167,14 @@ class apptestUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
             return array (  '_controller' => 'DC\\TenisBundle\\Controller\\GameController::indexAction',  '_route' => 'index',);
         }
 
-        // create_game
+        // create_match
         if ($pathinfo === '/tenis/create') {
-            return array (  '_controller' => 'DC\\TenisBundle\\Controller\\GameController::createAction',  '_route' => 'create_game',);
+            return array (  '_controller' => 'DC\\TenisBundle\\Controller\\GameController::createMatchAction',  '_route' => 'create_match',);
         }
 
-        // view_game
+        // view_match
         if (0 === strpos($pathinfo, '/tenis') && preg_match('#^/tenis/(?<id>[^/]+)$#s', $pathinfo, $matches)) {
-            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'DC\\TenisBundle\\Controller\\GameController::viewAction',)), array('_route' => 'view_game'));
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'DC\\TenisBundle\\Controller\\GameController::viewAction',)), array('_route' => 'view_match'));
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

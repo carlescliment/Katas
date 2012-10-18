@@ -3,16 +3,15 @@
 namespace DC\TenisBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use DC\TenisBundle\Entity\Game;
 
 
 /**
- * DC\TenisBundle\Entity\Game
+ * DC\TenisBundle\Entity\Match
  *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="DC\TenisBundle\Entity\GameRepository")
+ * @ORM\Table(name="matches")
+ * @ORM\Entity(repositoryClass="DC\TenisBundle\Entity\MatchRepository")
  */
-class Game
+class Match
 {
     /**
      * @var integer $id

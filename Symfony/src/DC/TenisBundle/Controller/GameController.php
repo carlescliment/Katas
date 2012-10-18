@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use DC\TenisBundle\Entity\Game;
+use DC\TenisBundle\Entity\Match;
 
 class GameController extends Controller
 {
@@ -20,23 +20,23 @@ class GameController extends Controller
     }
 
     /**
-     * @Route("/tenis/create", name="create_game")
+     * @Route("/tenis/create", name="create_match")
      */
-    public function createAction() {
-    	$game = new Game();
+    public function createMatchAction() {
+    	$match = new Match();
     	$em = $this->getDoctrine()->getEntityManager();
-    	$em->persist($game);
+    	$em->persist($match);
     	$em->flush();
-    	$this->get('session')->setFlash('notice', 'A new game has been started');
+    	$this->get('session')->setFlash('notice', 'A new match has been started');
     	return $this->redirect($this->generateUrl('index'));
     }
 
     /**
-     * @Route("/tenis/{id}", name="view_game")
+     * @Route("/tenis/{id}", name="view_match")
      * @Template()
      */
     public function viewAction($id) {
-    	$game = $this->getDoctrine()->getRepository('DCTenisBundle:Game')->find($id);
-    	return array('game' => $game);
+    	$match = $this->getDoctrine()->getRepository('DCTenisBundle:Match')->find($id);
+    	return array('match' => $match);
     }
 }
