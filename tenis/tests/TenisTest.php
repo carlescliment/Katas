@@ -12,54 +12,106 @@ class TenisTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testThereIsNoWinnerWhenGameStarts() {
-		$this->assertNull($this->scoreBoard->getWinner());
+		// Arrange
+		// Act
+		$winner = $this->scoreBoard->getWinner();
+
+		// Assert
+		$this->assertNull($winner);
 	}
 
 	public function testThereIsNoWinnerWhenLeftPlayerScoresOnce() {
+		// Arrange
 		$this->scoreBoard->scoreLeft();
-		$this->assertNull($this->scoreBoard->getWinner());
+
+		// Act
+		$winner = $this->scoreBoard->getWinner();
+
+		// Assert
+		$this->assertNull($winner);
 	}
 
 	public function testThereIsNoWinnerWhenRightPlayerScoresOnce() {
+		// Arrange
 		$this->scoreBoard->scoreRight();
-		$this->assertNull($this->scoreBoard->getWinner());
+
+		// Act
+		$winner = $this->scoreBoard->getWinner();
+
+		// Assert
+		$this->assertNull($winner);
 	}
 
 	public function testLeftPlayerWinsWhenScoresFourTimesInARow() {
+		// Arrange
 		left_player_scores_times($this->scoreBoard, 4);
-		$this->assertEquals(GameScoreBoard::LEFT_PLAYER, $this->scoreBoard->getWinner());
+
+		// Act
+		$winner = $this->scoreBoard->getWinner();
+
+		// Assert
+		$this->assertEquals(GameScoreBoard::LEFT_PLAYER, $winner);
 		$this->assertNotNull($this->scoreBoard->getWinner());
 	}
 
 	public function testRightPlayerWinsWhenScoresFourTimesInARow() {
+		// Arrange
 		right_player_scores_times($this->scoreBoard, 4);
-		$this->assertEquals(GameScoreBoard::RIGHT_PLAYER, $this->scoreBoard->getWinner());
+
+		// Act
+		$winner = $this->scoreBoard->getWinner();
+
+		// Assert
+		$this->assertEquals(GameScoreBoard::RIGHT_PLAYER, $winner);
 		$this->assertNotNull($this->scoreBoard->getWinner());
 	}
 
 	public function testThereIsNoWinnerOnEqualScores() {
+		// Arrange
 		set_deuce($this->scoreBoard);
-		$this->assertNull($this->scoreBoard->getWinner());
+
+		// Act
+		$winner = $this->scoreBoard->getWinner();
+
+		// Assert
+		$this->assertNull($winner);
 	}
 
 	public function testThereIsNoWinnerOnAdvance() {
+		// Arrange
 		set_deuce($this->scoreBoard);
 		$this->scoreBoard->scoreLeft();
-		$this->assertNull($this->scoreBoard->getWinner());
+
+		// Act
+		$winner = $this->scoreBoard->getWinner();
+
+		// Assert
+		$this->assertNull($winner);
 	}
 
 	public function testThereIsAWinnerWhenADeuceIsResolved() {
+		// Arrange
 		set_deuce($this->scoreBoard);
 		right_player_scores_times($this->scoreBoard, 2);
-		$this->assertNotNull($this->scoreBoard->getWinner());
+
+		// Act
+		$winner = $this->scoreBoard->getWinner();
+
+		// Assert
+		$this->assertNotNull($winner);
 	}
 
 	/**
 	 * @expectedException GameFinishedException
 	 */
 	public function testItDoesNotAllowScoringWhenGameIsFinished() {
+		// Arrange
 		left_player_scores_times($this->scoreBoard, 4);
+
+		// Act
 		$this->scoreBoard->scoreRight();
+
+		// Expect (implicit)
 	}
 
 }
