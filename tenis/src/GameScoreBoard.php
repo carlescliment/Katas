@@ -37,7 +37,7 @@ class GameScoreBoard {
 
 	public function render(TenisRender $render) {
 		if ($winner = $this->getWinner()) {
-			return $winner == self::LEFT_PLAYER ? 'LEFT WINS' : 'RIGHT WINS';
+			return $winner == self::LEFT_PLAYER ? $render->leftWins() : $render->rightWins();
 
 		}
 		return  $render->render($this->left, $this->right);
