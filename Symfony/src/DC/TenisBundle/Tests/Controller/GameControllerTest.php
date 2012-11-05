@@ -71,6 +71,10 @@ class GameControllerTest extends UsefulTestCase
     }
 
 
+    public function testAPlayerShouldScorePoints() {
+        
+    }
+
 	private function startANewMatchThroughInterface() {
     	$crawler = $this->client->request('GET', '/tenis');
 		$link = $crawler->filter('a#start-match')->link();
