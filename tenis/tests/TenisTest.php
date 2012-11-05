@@ -38,18 +38,18 @@ class TenisTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testThereIsNoWinnerOnEqualScores() {
-		$this->setDeuce();
+		set_deuce($this->scoreBoard);
 		$this->assertNull($this->scoreBoard->getWinner());
 	}
 
 	public function testThereIsNoWinnerOnAdvance() {
-		$this->setDeuce();
+		set_deuce($this->scoreBoard);
 		$this->scoreBoard->scoreLeft();
 		$this->assertNull($this->scoreBoard->getWinner());
 	}
 
 	public function testThereIsAWinnerWhenADeuceIsResolved() {
-		$this->setDeuce();
+		set_deuce($this->scoreBoard);
 		right_player_scores_times($this->scoreBoard, 2);
 		$this->assertNotNull($this->scoreBoard->getWinner());
 	}
@@ -62,10 +62,4 @@ class TenisTest extends \PHPUnit_Framework_TestCase {
 		$this->scoreBoard->scoreRight();
 	}
 
-	private function setDeuce() {
-		right_player_scores_times($this->scoreBoard, 3);
-		left_player_scores_times($this->scoreBoard, 3);
-		$this->scoreBoard->scoreRight();
-		$this->scoreBoard->scoreLeft();
-	}
 }

@@ -12,3 +12,10 @@ function right_player_scores_times($game, $times) {
 		$game->scoreRight();
 	}
 }
+
+function set_deuce($game) {
+	right_player_scores_times($game, 3);
+	left_player_scores_times($game, 3);
+	$game->scoreRight();
+	$game->scoreLeft();
+}
