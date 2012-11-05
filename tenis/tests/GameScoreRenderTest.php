@@ -145,7 +145,7 @@ class GameScoreRenderTest extends \PHPUnit_Framework_TestCase {
 
 	public function test_right_wins() {
 		// Arrange
-		left_player_scores_times($this->game, 4);
+		right_player_scores_times($this->game, 4);
 
 		// Act
 		$results = $this->game->render($this->render);

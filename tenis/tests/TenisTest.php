@@ -68,17 +68,4 @@ class TenisTest extends \PHPUnit_Framework_TestCase {
 		$this->scoreBoard->scoreRight();
 		$this->scoreBoard->scoreLeft();
 	}
-
-	private function leftPlayerScoresTimes($times) {
-		for ($i = 0; $i < $times; $i++) {
-			$this->scoreBoard->scoreLeft();
-		}
-	}
-
-	private function rightPlayerScoresTimes($times) {
-		for ($i = 0; $i < $times; $i++) {
-			$this->scoreBoard->scoreRight();
-		}
-	}
-
 }
