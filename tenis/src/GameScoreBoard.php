@@ -43,8 +43,6 @@ class GameScoreBoard {
 	}
 
 
-
-
 	private function anyPlayerScoredEnoughToWin() {
 		return $this->getBestScore() >= $this->MIN_POINTS_TO_WIN;
 	}
