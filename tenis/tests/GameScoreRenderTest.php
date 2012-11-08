@@ -1,8 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . "/../src/GameScoreBoard.php";
 require_once dirname(__FILE__) . "/../src/GameScoreRender.php";
-require_once dirname(__FILE__) . "/score_in_a_row.php";
 
 
 class GameScoreRenderTest extends \PHPUnit_Framework_TestCase {
