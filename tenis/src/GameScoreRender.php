@@ -14,6 +14,14 @@ class GameScoreRender implements TenisRender {
 	}
 
 
+	public function leftWins() {
+		return "LEFT WINS";
+	}
+
+	public function rightWins() {
+		return "RIGHT WINS";
+	}
+
 	private function scoreToRepr($score) {
 		switch($score) {
 			case 0:
