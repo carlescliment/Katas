@@ -51,7 +51,6 @@ class TenisTest extends \PHPUnit_Framework_TestCase {
 
 		// Assert
 		$this->assertEquals(GameScoreBoard::LEFT_PLAYER, $winner);
-		$this->assertNotNull($this->scoreBoard->getWinner());
 	}
 
 	public function testRightPlayerWinsWhenScoresFourTimesInARow() {
@@ -63,7 +62,6 @@ class TenisTest extends \PHPUnit_Framework_TestCase {
 
 		// Assert
 		$this->assertEquals(GameScoreBoard::RIGHT_PLAYER, $winner);
-		$this->assertNotNull($this->scoreBoard->getWinner());
 	}
 
 	public function testThereIsNoWinnerOnEqualScores() {
@@ -112,6 +110,21 @@ class TenisTest extends \PHPUnit_Framework_TestCase {
 		$this->scoreBoard->scoreRight();
 
 		// Expect (implicit)
+	}
+
+
+	public function testGamePassesScoresToRenderProperly() {
+		// Arrange
+		$render = $this->getMock('TenisRender');
+		$render->expects($this->once())
+			->method('render')
+			->with(1, 0);
+		$this->scoreBoard->scoreLeft();
+
+		// Act
+		$this->scoreBoard->render($render);
+
+		// Assert (implicit)
 	}
 
 }
