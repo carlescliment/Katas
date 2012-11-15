@@ -16,7 +16,7 @@ class SQLGeneratorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
-	public function testItSelectsAllRows() {
+	public function testItSelectsAllFields() {
 		// Arrange
 		$this->stubTableName('my_table');
 
