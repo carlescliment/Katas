@@ -38,7 +38,8 @@ class SelectSQLQueryTest extends PHPUnit_Framework_TestCase {
 
   public function testItGroupsByOneField() {
   	// Arrange
-	$this->stubTableFields(array('foo'));
+  	$this->stubTableFields(array('foo'));
+
   	// Act
   	$result = $this->query->groupBy(array('foo'));
 
@@ -85,14 +86,66 @@ class SelectSQLQueryTest extends PHPUnit_Framework_TestCase {
 
 
   public function testItGroupsByManyOrderedFields() {
-	// Arrange
-	$this->stubTableFields(array('foo', 'bar', 'baz'));
+  	// Arrange
+  	$this->stubTableFields(array('foo', 'bar', 'baz'));
 
   	// Act
   	$result = $this->query->groupBy(array('foo', 'baz'), array('desc', 'asc'));
 
   	// Assert
   	$this->assertEquals('SELECT * FROM my_table GROUP BY foo DESC, baz ASC', $result);
+  }
+
+
+  public function testItOrdersByFields() {
+    // Arrange
+    $this->stubTableFields(array('foo', 'bar', 'baz'));
+
+    // Act
+    $result = $this->query->orderBy(array('bar'));
+
+    // Assert
+    $this->assertEquals('SELECT * FROM my_table ORDER BY bar', $result);
+  }
+
+
+
+  /**
+   * @expectedException UnexistingFieldException
+   */
+  public function testItThrowsAnExceptionWhenOrderingByUnexistingFields() {
+    // Arrange
+    $this->stubTableFields(array('foo', 'bar', 'baz'));
+
+    // Act
+    $result = $this->query->orderBy(array('xyz'));
+
+    // Assert (implicit)
+  }
+
+
+
+  public function testItOrdersByAsc() {
+    // Arrange
+    $this->stubTableFields(array('bar', 'baz'));
+
+    // Act
+    $result = $this->query->orderBy(array('bar'), array('desc'));
+
+    // Assert
+    $this->assertEquals('SELECT * FROM my_table ORDER BY bar DESC', $result);
+  }
+
+
+  public function testItOrdersManyFields() {
+    // Arrange
+    $this->stubTableFields(array('foo', 'bar', 'baz'));
+
+    // Act
+    $result = $this->query->orderBy(array('bar', 'foo'), array('desc', 'asc'));
+
+    // Assert
+    $this->assertEquals('SELECT * FROM my_table ORDER BY bar DESC, foo ASC', $result);
   }
 
 

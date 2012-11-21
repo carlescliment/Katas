@@ -79,73 +79,17 @@ class SQLGeneratorTest extends \PHPUnit_Framework_TestCase {
     // Assert (exception expected)
   }
 
-  public function testItShouldOrderByFields() {
+
+  public function testItDeletesAllRows() {
     // Arrange
     $this->stubTableName('my_table');
-    $this->stubTableFields(array('foo', 'bar', 'baz'));
 
-    // Act
-    $result = $this->generator->select(array('foo', 'bar'))
-                              ->orderBy(array('bar'));
-
-    // Assert
-    $this->assertEquals('SELECT foo, bar FROM my_table ORDER BY bar', $result);
-  }
-
-  /**
-   * @expectedException UnexistingFieldException
-   */
-  public function testItThrowsAnExceptionWhenOrderingByUnexistingFields() {
-    // Arrange
-    $this->stubTableName('my_table');
-    $this->stubTableFields(array('foo', 'bar', 'baz'));
-
-    // Act
-    $result = $this->generator->select(array('foo', 'bar'))
-                              ->orderBy(array('xyz'));
-
-    // Assert (implicit)
-  }
-
-
-  public function testItOrdersByAsc() {
-    // Arrange
-    $this->stubTableName('my_table');
-    $this->stubTableFields(array('foo', 'bar', 'baz'));
-
-    // Act
-    $result = $this->generator->select(array('foo', 'bar'))
-                              ->orderBy(array('bar'), array('desc'));
-
-    // Assert
-    $this->assertEquals('SELECT foo, bar FROM my_table ORDER BY bar DESC', $result);
-  }
-
-
-  public function testItOrdersManyFields() {
-    // Arrange
-    $this->stubTableName('my_table');
-    $this->stubTableFields(array('foo', 'bar', 'baz'));
-
-    // Act
-    $result = $this->generator->select(array('foo', 'bar'))
-                              ->orderBy(array('bar', 'foo'), array('desc', 'asc'));
-
-    // Assert
-    $this->assertEquals('SELECT foo, bar FROM my_table ORDER BY bar DESC, foo ASC', $result);
-  }
-
-
-
-  public function testItDeletesAllRowsFromATable() {
-    // Arrange
     // Act
     $result = $this->generator->delete();
 
     // Assert
     $this->assertEquals('DELETE FROM my_table', $result);
   }
-
 
 
   public function testItUpdatesAllRows() {

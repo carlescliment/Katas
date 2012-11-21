@@ -16,7 +16,7 @@ class SQLCollaboratorTest extends \PHPUnit_Framework_TestCase {
 	}
 
 
-	public function testItRetrievesTableNameFromMetadata() {
+	public function testItRetrievesTableNameFromMetadataOnSelect() {
 		// Arrange
 		$this->metadata->expects($this->once())
 			->method('getTableName');
@@ -34,6 +34,17 @@ class SQLCollaboratorTest extends \PHPUnit_Framework_TestCase {
 
 		// Act
 		$this->generator->select();
+
+		// Assert (implicit)
+	}
+
+	public function testItRetrievesTableNameFromMetadataOnDelete() {
+		// Arrange
+		$this->metadata->expects($this->once())
+			->method('getTableName');
+
+		// Act
+		$this->generator->delete();
 
 		// Assert (implicit)
 	}
