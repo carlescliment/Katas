@@ -65,7 +65,6 @@ class SQLGeneratorTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals('SELECT foo, bar, baz, jar, jir, jor FROM my_table', $result);
   }
 
-
   /**
    * @expectedException UnexistingFieldException
    */
@@ -108,6 +107,7 @@ class SQLGeneratorTest extends \PHPUnit_Framework_TestCase {
     // Assert (implicit)
   }
 
+
   public function testItOrdersByAsc() {
     // Arrange
     $this->stubTableName('my_table');
@@ -135,32 +135,28 @@ class SQLGeneratorTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals('SELECT foo, bar FROM my_table ORDER BY bar DESC, foo ASC', $result);
   }
 
-  public function testItLimitsResults() {
-    // Arrange
-    $this->stubTableName('my_table');
-    $this->stubTableFields(array('foo', 'bar', 'baz'));
 
+
+  public function testItDeletesAllRowsFromATable() {
+    // Arrange
     // Act
-    $result = $this->generator->select()
-                              ->limit(1);
+    $result = $this->generator->delete();
 
     // Assert
-    $this->assertEquals('SELECT * FROM my_table LIMIT 1', $result);
+    $this->assertEquals('DELETE FROM my_table', $result);
   }
 
 
-  public function testItLimitsResultsByAnyAmount() {
-    // Arrange
-    $this->stubTableName('my_table');
-    $this->stubTableFields(array('foo', 'bar', 'baz'));
 
+  public function testItUpdatesAllRows() {
+    // Arrange
     // Act
-    $result = $this->generator->select()
-                              ->limit(1234);
+    $result = $this->generator->update(array('foo' => 'new value'));
 
     // Assert
-    $this->assertEquals('SELECT * FROM my_table LIMIT 1234', $result);
+    $this->assertEquals('UPDATE my_table SET foo="new value"', $result);
   }
+
 
   private function stubTableName($table_name) {
     $this->metadata->expects($this->any())
