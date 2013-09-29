@@ -9,6 +9,7 @@ use Terminator\Components\Legs;
 class T1000
 {
     private $routeCalculator;
+    private $legs;
 
 
     public function __construct(Calculator $route_calculator, Legs $legs)
