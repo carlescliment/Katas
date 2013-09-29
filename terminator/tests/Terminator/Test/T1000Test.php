@@ -26,9 +26,7 @@ class T1000Test extends \PHPUnit_Framework_TestCase
     {
         $target = $this->getMock('Terminator\Entities\Target');
 
-        $this->routeCalculator->expects($this->once())
-            ->method('calculate')
-            ->with($target);
+        $this->expectCalculatorToReceive($target);
 
         $this->t1000->addTarget($target);
     }
@@ -42,9 +40,7 @@ class T1000Test extends \PHPUnit_Framework_TestCase
         $target = $this->getMock('Terminator\Entities\Target');
         $route = $this->stubCalculatedRoute();
 
-        $this->legs->expects($this->once())
-            ->method('move')
-            ->with($route);
+        $this->expectLegsToReceive($route);
 
         $this->t1000->addTarget($target);
     }
@@ -57,5 +53,20 @@ class T1000Test extends \PHPUnit_Framework_TestCase
             ->method('calculate')
             ->will($this->returnValue($route));
         return $route;
+    }
+
+
+    private function expectCalculatorToReceive($target)
+    {
+        $this->routeCalculator->expects($this->once())
+            ->method('calculate')
+            ->with($target);
+    }
+
+    private function expectLegsToReceive($route)
+    {
+        $this->legs->expects($this->once())
+            ->method('move')
+            ->with($route);
     }
 }
