@@ -1,0 +1,21 @@
+{
+    "name": "carlescliment/terminator",
+    "description": "Kata Terminator",
+    "version": "0.0.1",
+    "type": "project",
+    "keywords": ["php", "tdd"],
+    "authors": [
+        {
+            "name": "Carles Climent Granell",
+            "email": "carlescliment@gmail.com",
+            "homepage": "http://www.carlescliment.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "autoload": {
+        "psr-0": { "carlescliment\\Terminator": "src/" }
+    }
+}
