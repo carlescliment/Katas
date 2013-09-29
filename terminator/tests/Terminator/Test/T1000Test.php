@@ -7,22 +7,30 @@ use Terminator\T1000;
 class T1000Test extends \PHPUnit_Framework_TestCase
 {
 
+    private $routeCalculator;
+    private $legs;
+    private $t1000;
+
+    public function setUp()
+    {
+        $this->routeCalculator = $this->getMock('Terminator\Routing\Calculator');
+        $this->legs = $this->getMock('Terminator\Components\Legs');
+        $this->t1000 = new T1000($this->routeCalculator, $this->legs);
+    }
+
 
     /**
      * @test
      */
     public function itCalculatesTheStraightRouteToTarget()
     {
-        $route_calculator = $this->getMock('Terminator\Routing\Calculator');
-        $legs = $this->getMock('Terminator\Components\Legs');
-        $t1000 = new T1000($route_calculator, $legs);
         $target = $this->getMock('Terminator\Entities\Target');
 
-        $route_calculator->expects($this->once())
+        $this->routeCalculator->expects($this->once())
             ->method('calculate')
             ->with($target);
 
-        $t1000->addTarget($target);
+        $this->t1000->addTarget($target);
     }
 
 
@@ -31,19 +39,23 @@ class T1000Test extends \PHPUnit_Framework_TestCase
      */
     public function itMovesToTheTargetThroughTheCalculatedRoute()
     {
-        $route_calculator = $this->getMock('Terminator\Routing\Calculator');
-        $legs = $this->getMock('Terminator\Components\Legs');
-        $t1000 = new T1000($route_calculator, $legs);
         $target = $this->getMock('Terminator\Entities\Target');
-        $route = $this->getMock('Terminator\Routing\Route');
-        $route_calculator->expects($this->any())
-            ->method('calculate')
-            ->will($this->returnValue($route));
+        $route = $this->stubCalculatedRoute();
 
-        $legs->expects($this->once())
+        $this->legs->expects($this->once())
             ->method('move')
             ->with($route);
 
-        $t1000->addTarget($target);
+        $this->t1000->addTarget($target);
+    }
+
+
+    private function stubCalculatedRoute()
+    {
+        $route = $this->getMock('Terminator\Routing\Route');
+        $this->routeCalculator->expects($this->any())
+            ->method('calculate')
+            ->will($this->returnValue($route));
+        return $route;
     }
 }
