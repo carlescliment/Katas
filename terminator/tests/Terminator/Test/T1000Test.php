@@ -46,6 +46,32 @@ class T1000Test extends \PHPUnit_Framework_TestCase
     }
 
 
+    /**
+     * @test
+     */
+    public function itAttendsManyTargetsInTheOrderTheyWereGiven()
+    {
+        $target = $this->getMock('Terminator\Entities\Target');
+        $first_route = $this->getMock('Route');
+        $first_route->id = 1;
+        $second_route = $this->getMock('Route');
+        $second_route->id = 2;
+        $this->routeCalculator->expects($this->any())
+            ->method('calculate')
+            ->will($this->onConsecutiveCalls($first_route, $second_route));
+
+        $this->legs->expects($this->at(0))
+            ->method('move')
+            ->with($first_route);
+        $this->legs->expects($this->at(1))
+            ->method('move')
+            ->with($second_route);
+
+        $this->t1000->addTarget($target);
+        $this->t1000->addTarget($target);
+    }
+
+
     private function stubCalculatedRoute()
     {
         $route = $this->getMock('Terminator\Routing\Route');
