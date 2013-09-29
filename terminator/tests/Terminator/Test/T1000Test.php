@@ -26,9 +26,11 @@ class T1000Test extends \PHPUnit_Framework_TestCase
      */
     public function itCalculatesTheStraightRouteToTarget()
     {
+        $this->t1000->addTarget($this->target);
+
         $this->expectCalculatorToReceive($this->target);
 
-        $this->t1000->addTarget($this->target);
+        $this->t1000->wakeUp();
     }
 
 
@@ -37,11 +39,12 @@ class T1000Test extends \PHPUnit_Framework_TestCase
      */
     public function itMovesToTheTargetThroughTheCalculatedRoute()
     {
+        $this->t1000->addTarget($this->target);
         $route = $this->stubCalculatedRoute();
 
         $this->expectLegsToReceive($route);
 
-        $this->t1000->addTarget($this->target);
+        $this->t1000->wakeUp();
     }
 
 
@@ -50,12 +53,13 @@ class T1000Test extends \PHPUnit_Framework_TestCase
      */
     public function itAttendsManyTargetsInTheOrderTheyWereGiven()
     {
+        $this->t1000->addTarget($this->target);
+        $this->t1000->addTarget($this->target);
         list($first_route, $second_route) = $this->stubTwoCalculatedRoutes();
 
         $this->expectLegsToReceiveConsecutively($first_route, $second_route);
 
-        $this->t1000->addTarget($this->target);
-        $this->t1000->addTarget($this->target);
+        $this->t1000->wakeUp();
     }
 
 
