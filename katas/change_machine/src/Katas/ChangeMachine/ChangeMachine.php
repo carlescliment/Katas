@@ -23,6 +23,7 @@ class ChangeMachine
             Coins::ONE_CENT => [Coins::ONE_CENT],
             Coins::TWO_CENTS => [Coins::TWO_CENTS],
             Coins::FIVE_CENTS => [Coins::FIVE_CENTS],
+            '0.06' => [Coins::FIVE_CENTS, Coins::ONE_CENT],
             ];
         $this->cassete->dispense($to_dispense[(string)$total]);
     }
