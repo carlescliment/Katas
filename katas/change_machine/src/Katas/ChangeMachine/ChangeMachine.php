@@ -13,17 +13,17 @@ class ChangeMachine
 
     public function change(array $coins)
     {
-        $sum = $this->getTotal($coins);
-        if (0 === $sum) {
-            $to_dispense = [];
-        }
-        elseif (0.01 == $sum) {
-            $to_dispense = [Coins::ONE_CENT];
-        }
-        else {
-            $to_dispense = [Coins::TWO_CENTS];
-        }
-        $this->cassete->dispense($to_dispense);
+        $this->dispenseFor($this->getTotal($coins));
+    }
+
+    private function dispenseFor($total)
+    {
+        $to_dispense = [
+            '0'    => [],
+            Coins::ONE_CENT => [Coins::ONE_CENT],
+            Coins::TWO_CENTS => [Coins::TWO_CENTS],
+            ];
+        $this->cassete->dispense($to_dispense[(string)$total]);
     }
 
     private function getTotal($coins)
