@@ -35,4 +35,11 @@ class ChangeMachineSpec extends ObjectBehavior
 
         $cassete->dispense([Coins::TWO_CENTS])->shouldHaveBeenCalled();
     }
+
+    function it_gives_1x5c_for_2x2c_plus_1x1c($cassete)
+    {
+        $this->change([Coins::TWO_CENTS, Coins::TWO_CENTS, Coins::ONE_CENT]);
+
+        $cassete->dispense([Coins::FIVE_CENTS]);
+    }
 }
