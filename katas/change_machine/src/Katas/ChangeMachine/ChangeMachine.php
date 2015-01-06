@@ -5,10 +5,12 @@ namespace Katas\ChangeMachine;
 class ChangeMachine
 {
     private $cassete;
+    private $stock;
 
     public function __construct(Cassete $cassete)
     {
         $this->cassete = $cassete;
+        $this->stock = new Stock();
     }
 
     public function change(array $coins)
@@ -21,7 +23,7 @@ class ChangeMachine
         $rest = $total;
         $coins = [];
         while ($rest > 0) {
-            $biggest = Coins::biggestFor($rest);
+            $biggest = $this->stock->biggestFor($rest);
             $coins[] = $biggest;
             $rest -= $biggest;
         }
