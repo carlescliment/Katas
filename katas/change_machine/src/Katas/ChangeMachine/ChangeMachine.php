@@ -13,7 +13,7 @@ class ChangeMachine
 
     public function change(array $coins)
     {
-        $this->cassete->dispense([]);
+        $this->cassete->dispense($coins);
     }
 
 }
