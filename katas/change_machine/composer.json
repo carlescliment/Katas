@@ -1,0 +1,17 @@
+{
+    "name": "carlescliment/change_machine",
+    "description": "This kata serves as a demonstration for a PHPSpec talk in PHPValencia",
+    "require": {
+        "phpspec/phpspec": "~2.1"
+    },
+    "config": {
+        "bin-dir": "bin",
+        "vendor-dir": "vendor"
+    },
+    "authors": [
+        {
+            "name": "Carles Climent",
+            "email": "carlescliment@gmail.com"
+        }
+    ]
+}
