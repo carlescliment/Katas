@@ -18,14 +18,14 @@ class ChangeMachine
 
     private function dispenseFor($total)
     {
-        $to_dispense = [
-            '0'    => [],
-            Coins::ONE_CENT => [Coins::ONE_CENT],
-            Coins::TWO_CENTS => [Coins::TWO_CENTS],
-            Coins::FIVE_CENTS => [Coins::FIVE_CENTS],
-            '0.06' => [Coins::FIVE_CENTS, Coins::ONE_CENT],
-            ];
-        $this->cassete->dispense($to_dispense[(string)$total]);
+        $rest = $total;
+        $coins = [];
+        while ($rest > 0) {
+            $biggest = Coins::biggestFor($rest);
+            $coins[] = $biggest;
+            $rest -= $biggest;
+        }
+        $this->cassete->dispense($coins);
     }
 
     private function getTotal($coins)

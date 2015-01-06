@@ -22,14 +22,14 @@ class ChangeMachineSpec extends ObjectBehavior
         $cassete->dispense([])->shouldHaveBeenCalled();
     }
 
-    function it_gives_one_cent_if_one_cent_was_inserted($cassete)
+    function it_gives_1x1c_for_1x1c($cassete)
     {
         $this->change([Coins::ONE_CENT]);
 
         $cassete->dispense([Coins::ONE_CENT])->shouldHaveBeenCalled();
     }
 
-    function it_gives_a_coin_of_two_cents_for_two_coins_of_one_cent($cassete)
+    function it_gives_1x2c_for_2x1c($cassete)
     {
         $this->change([Coins::ONE_CENT, Coins::ONE_CENT]);
 
