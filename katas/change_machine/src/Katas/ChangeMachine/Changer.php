@@ -16,7 +16,7 @@ class Changer
         $rest = $total;
         $coins = [];
         while ($rest > 0) {
-            $biggest = $this->stock->biggestFor($rest);
+            $biggest = $this->stock->biggestFor((string)$rest);
             $coins[] = $biggest;
             $rest -= $biggest;
         }

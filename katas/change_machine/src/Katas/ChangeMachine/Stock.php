@@ -4,29 +4,24 @@ namespace Katas\ChangeMachine;
 
 class Stock
 {
+    private $coins;
+
+    public function __construct()
+    {
+        $this->coins = [new Coin(Coins::FIVE_CENTS), new Coin(Coins::TWO_CENTS), new Coin(Coins::ONE_CENT)];
+    }
+
     public function biggestFor($amount)
     {
-        $biggest_possible_coin = $this->lookupBiggestFor($amount);
-
-        return $biggest_possible_coin ?: $this->smallerPossibleCoin();
+        return $this->lookupBiggestFor($amount) ?: $this->smallestPossibleCoin();
     }
 
     private function lookupBiggestFor($amount)
     {
-        $coins = [new Coin(Coins::FIVE_CENTS), new Coin(Coins::TWO_CENTS), new Coin(Coins::ONE_CENT)];
-        foreach ($coins as $coin) {
-            if ($coin->value() <= $amount) {
+        foreach ($this->coins as $coin) {
+            if ($coin->worthsLessOrEqualThan($amount)) {
                 return $coin->value();
             }
         }
-
-        return null;
-    }
-
-    private function smallerPossibleCoin()
-    {
-        $lower = new Coin(Coins::ONE_CENT);
-
-        return $lower->value();
     }
 }

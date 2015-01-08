@@ -11,6 +11,11 @@ class Coin
         $this->value = $value;
     }
 
+    public function worthsLessOrEqualThan($amount)
+    {
+        return $this->value <= $amount;
+    }
+
     public function value()
     {
         return $this->value;
