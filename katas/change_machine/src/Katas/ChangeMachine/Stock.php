@@ -6,9 +6,9 @@ class Stock
 {
     private $coins;
 
-    public function __construct()
+    public function __construct(array $coins)
     {
-        $this->coins = [new Coin(Coins::FIVE_CENTS), new Coin(Coins::TWO_CENTS), new Coin(Coins::ONE_CENT)];
+        $this->coins = $coins;
     }
 
     public function biggestFor($amount)
