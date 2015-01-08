@@ -4,12 +4,19 @@ namespace Katas\ChangeMachine;
 
 class Changer
 {
-    public function change($total, $stock)
+    private $stock;
+
+    public function __construct(Stock $stock)
+    {
+        $this->stock = $stock;
+    }
+
+    public function change($total)
     {
         $rest = $total;
         $coins = [];
         while ($rest > 0) {
-            $biggest = $stock->biggestFor($rest);
+            $biggest = $this->stock->biggestFor($rest);
             $coins[] = $biggest;
             $rest -= $biggest;
         }

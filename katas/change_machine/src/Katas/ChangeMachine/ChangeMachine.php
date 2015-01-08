@@ -5,27 +5,32 @@ namespace Katas\ChangeMachine;
 class ChangeMachine
 {
     private $cassete;
-    private $stock;
+    private $changer;
 
     public function __construct(Cassete $cassete)
     {
         $this->cassete = $cassete;
-        $this->stock = new Stock();
+        $this->changer = new Changer(new Stock());
     }
 
     public function change(array $coins)
     {
-        $this->dispenseFor($this->getTotal($coins));
+        $this->dispense($this->coinsFor($this->totalize($coins)));
+
+        return $this;
     }
 
-    private function dispenseFor($total)
+    private function dispense(array $coins)
     {
-        $changer = new Changer();
-        $coins = $changer->change($total, $this->stock);
-        $this->cassete->dispense($coins);
+        return $this->cassete->dispense($coins);
     }
 
-    private function getTotal($coins)
+    private function coinsFor($amount)
+    {
+        return $this->changer->change($amount);
+    }
+
+    private function totalize(array $coins)
     {
         return array_reduce($coins, function($carry, $coin) {
             return $carry + $coin;
