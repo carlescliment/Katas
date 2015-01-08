@@ -6,13 +6,15 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 use Katas\ChangeMachine\Coins;
+use Katas\ChangeMachine\Changer;
+use Katas\ChangeMachine\Stock;
 
 class ChangeMachineSpec extends ObjectBehavior
 {
     function let($cassete)
     {
         $cassete->beADoubleOf('Katas\ChangeMachine\Cassete');
-        $this->beConstructedWith($cassete);
+        $this->beConstructedWith($cassete, new Changer(new Stock()));
     }
 
     function it_gives_no_coins_if_no_coins_were_inserted($cassete)

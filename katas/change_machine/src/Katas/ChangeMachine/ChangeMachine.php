@@ -7,10 +7,10 @@ class ChangeMachine
     private $cassete;
     private $changer;
 
-    public function __construct(Cassete $cassete)
+    public function __construct(Cassete $cassete, Changer $changer)
     {
         $this->cassete = $cassete;
-        $this->changer = new Changer(new Stock());
+        $this->changer = $changer;
     }
 
     public function change(array $coins)
