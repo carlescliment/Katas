@@ -20,13 +20,8 @@ class ChangeMachine
 
     private function dispenseFor($total)
     {
-        $rest = $total;
-        $coins = [];
-        while ($rest > 0) {
-            $biggest = $this->stock->biggestFor($rest);
-            $coins[] = $biggest;
-            $rest -= $biggest;
-        }
+        $changer = new Changer();
+        $coins = $changer->change($total, $this->stock);
         $this->cassete->dispense($coins);
     }
 
