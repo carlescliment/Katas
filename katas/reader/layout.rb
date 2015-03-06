@@ -17,6 +17,8 @@ module Loader
       entries
     end
 
+    private
+
     def valid?(row)
       HEADERS.zip(row).all? do |field, value|
         field.valid?(value)
