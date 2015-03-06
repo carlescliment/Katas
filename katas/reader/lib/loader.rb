@@ -1,5 +1,5 @@
-require './sources'
-require './layout'
+require_relative './sources'
+require_relative './layout'
 require 'ostruct'
 require 'csv'
 

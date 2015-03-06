@@ -1,4 +1,4 @@
-require './fields'
+require_relative './fields'
 
 module Loader
   class Layout
