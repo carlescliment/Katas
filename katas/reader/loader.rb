@@ -23,6 +23,16 @@ module Loader
         true
       end
     end
+
+    class AccountNumber
+      def extract(value)
+        value
+      end
+
+      def valid?(value)
+        true
+      end
+    end
   end
 
   def self.load(path)
@@ -30,10 +40,11 @@ module Loader
     CSV.foreach(path) do |row|
       name = Fields::Name.new
       balance = Fields::Balance.new
+      account_number = Fields::AccountNumber.new
       entries << OpenStruct.new({
         name: name.extract(row[0]),
         balance: balance.extract(row[1]),
-        account_number: row[2]
+        account_number: account_number.extract(row[2])
       }) if balance.valid?(row[1])
     end
 
