@@ -14,13 +14,8 @@ module Loader
   end
 
   def self.load(path)
-    entries = []
     layout = Layout.new
-    rows = CSVSource.new(path).rows
-    rows.each do |row|
-      entries << OpenStruct.new(layout.extract(row)) if layout.valid?(row)
-    end
-
-    entries
+    source = CSVSource.new(path)
+    layout.crawl(source)
   end
 end
