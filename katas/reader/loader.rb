@@ -6,7 +6,8 @@ module Loader
   def self.load(path)
     entries = []
     layout = Layout.new
-    CSV.foreach(path) do |row|
+    rows = CSV.read(path)
+    rows.each do |row|
       entries << OpenStruct.new(layout.extract(row)) if layout.valid?(row)
     end
 
