@@ -5,6 +5,10 @@ require 'csv'
 module Loader
   module Fields
     class Balance
+      def id
+        :balance
+      end
+
       def extract(value)
         value.to_f 
       end
@@ -15,6 +19,10 @@ module Loader
     end
 
     class Name
+      def id
+        :name
+      end
+
       def extract(value)
         value.strip
       end
@@ -25,6 +33,10 @@ module Loader
     end
 
     class AccountNumber
+      def id
+        :account_number
+      end
+
       def extract(value)
         value
       end
@@ -38,16 +50,8 @@ module Loader
   def self.load(path)
     entries = []
     CSV.foreach(path) do |row|
-      name = Fields::Name.new
-      balance = Fields::Balance.new
-      account_number = Fields::AccountNumber.new
       if self.row_valid?(row)
-        extracted_fields = {
-          name: name.extract(row[0]),
-          balance: balance.extract(row[1]),
-          account_number: account_number.extract(row[2])
-        }
-        entries << OpenStruct.new(extracted_fields)
+        entries << OpenStruct.new(extract_fields(row))
       end
     end
 
@@ -63,5 +67,20 @@ module Loader
     layout.zip(row).all? do |field, value|
       field.valid?(value)
     end
+  end
+
+  def self.extract_fields(row)
+    layout = [
+      Fields::Name.new,
+      Fields::Balance.new,
+      Fields::AccountNumber.new
+    ]
+
+    fields = {}
+    layout.zip(row).each do |field, value|
+      fields[field.id] = field.extract(value)
+    end
+
+    fields
   end
 end
