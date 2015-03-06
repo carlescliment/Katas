@@ -41,7 +41,7 @@ module Loader
       name = Fields::Name.new
       balance = Fields::Balance.new
       account_number = Fields::AccountNumber.new
-      if balance.valid?(row[1])
+      if self.row_valid?(row)
         extracted_fields = {
           name: name.extract(row[0]),
           balance: balance.extract(row[1]),
@@ -52,5 +52,16 @@ module Loader
     end
 
     entries
+  end
+
+  def self.row_valid?(row)
+    layout = [
+      Fields::Name.new,
+      Fields::Balance.new,
+      Fields::AccountNumber.new
+    ]
+    layout.zip(row).all? do |field, value|
+      field.valid?(value)
+    end
   end
 end
