@@ -41,12 +41,14 @@ module Loader
       name = Fields::Name.new
       balance = Fields::Balance.new
       account_number = Fields::AccountNumber.new
-      extracted_fields = {
-        name: name.extract(row[0]),
-        balance: balance.extract(row[1]),
-        account_number: account_number.extract(row[2])
-      }
-      entries << OpenStruct.new(extracted_fields) if balance.valid?(row[1])
+      if balance.valid?(row[1])
+        extracted_fields = {
+          name: name.extract(row[0]),
+          balance: balance.extract(row[1]),
+          account_number: account_number.extract(row[2])
+        }
+        entries << OpenStruct.new(extracted_fields)
+      end
     end
 
     entries
