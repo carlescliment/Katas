@@ -47,40 +47,38 @@ module Loader
     end
   end
 
+  class Layout
+    HEADERS = [
+      Fields::Name.new,
+      Fields::Balance.new,
+      Fields::AccountNumber.new
+    ]
+
+    def valid?(row)
+      HEADERS.zip(row).all? do |field, value|
+        field.valid?(value)
+      end
+    end
+
+    def extract(row)
+      fields = {}
+      HEADERS.zip(row).each do |field, value|
+        fields[field.id] = field.extract(value)
+      end
+
+      fields
+    end
+  end
+
   def self.load(path)
     entries = []
+    layout = Layout.new
     CSV.foreach(path) do |row|
-      if self.row_valid?(row)
-        entries << OpenStruct.new(extract_fields(row))
+      if layout.valid?(row)
+        entries << OpenStruct.new(layout.extract(row))
       end
     end
 
     entries
-  end
-
-  def self.row_valid?(row)
-    layout = [
-      Fields::Name.new,
-      Fields::Balance.new,
-      Fields::AccountNumber.new
-    ]
-    layout.zip(row).all? do |field, value|
-      field.valid?(value)
-    end
-  end
-
-  def self.extract_fields(row)
-    layout = [
-      Fields::Name.new,
-      Fields::Balance.new,
-      Fields::AccountNumber.new
-    ]
-
-    fields = {}
-    layout.zip(row).each do |field, value|
-      fields[field.id] = field.extract(value)
-    end
-
-    fields
   end
 end
